@@ -1,0 +1,19 @@
+enum i {haha=2, rile, goule} ;
+int a,b;
+
+int add(int a, int b){
+	return a+b;
+}
+
+int main()
+{
+	int c;
+	char k;
+	//fuck
+/*
+		ke
+	*/
+	// you
+	k = 'n';
+	return k;
+}
