@@ -15,5 +15,10 @@ int main()
 	*/
 	// you
 	k = 'n';
-	return k;
+	a = 1;b = 2;
+	c = add(a++,++b);
+	if(a < b){
+		return a;
+	}
+	return c;
 }

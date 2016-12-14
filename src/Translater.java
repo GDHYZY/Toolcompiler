@@ -183,11 +183,18 @@ public class Translater extends InterpreterBaseVisitor<Object> {
 	@Override
 	public Object visitString(InterpreterParser.StringContext ctx) {
 		// TODO Auto-generated method stub
-		String s = ctx.CODING().getText().toString();
+		String s ;
+		
+		if(ctx.CharacterConstant() != null){
+			s = visit(ctx.CharacterConstant()).toString();
+		}else{
+			s = visit(ctx.StringLiteral()).toString();
+		}
+		char c = s.charAt(0);
 		int last_pos = data_pos;
-		int i = 0;
+		int i = 1;
 		int val = 0;
-		while(i < s.length()){
+		while(i < s.length() - 1){
 			val = s.charAt(i++);
 			if(val == '\\'){
 				val = s.charAt(i++);
@@ -195,11 +202,11 @@ public class Translater extends InterpreterBaseVisitor<Object> {
 					val = '\n';
 				}
 			}
-			if(ctx.dquo() != null)
+			if(c == '"')
 				Program.getInstance().DataSegment[++data_pos] = (byte)val;
 		}
 		
-		if(ctx.apos() != null){		// ' '
+		if(c == '\''){		// ' '
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().IMM;
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = val;
 			expr_type = Program.getInstance().INT;
@@ -640,8 +647,9 @@ public class Translater extends InterpreterBaseVisitor<Object> {
 		return null;
 	}
 	
+
 	@Override
-	public Object visitIf_statement(InterpreterParser.If_statementContext ctx) {
+	public Object visitIfStatement(InterpreterParser.IfStatementContext ctx) {
 		// TODO Auto-generated method stub
 		int b;
 		visit(ctx.expr());
@@ -661,7 +669,7 @@ public class Translater extends InterpreterBaseVisitor<Object> {
 	}
 	
 	@Override
-	public Object visitWhile_statement(InterpreterParser.While_statementContext ctx) {
+	public Object visitWhileStatement(InterpreterParser.WhileStatementContext ctx) {
 		// TODO Auto-generated method stub
 		int a,b;
 		a = Program.getInstance()._textpos + 1;

@@ -10,6 +10,18 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface InterpreterVisitor<T> extends ParseTreeVisitor<T> {
 	/**
+	 * Visit a parse tree produced by {@link InterpreterParser#apos}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitApos(InterpreterParser.AposContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link InterpreterParser#dquo}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDquo(InterpreterParser.DquoContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code Number}
 	 * labeled alternative in {@link InterpreterParser#expr}.
 	 * @param ctx the parse tree
@@ -59,13 +71,6 @@ public interface InterpreterVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPostfixIncDec(InterpreterParser.PostfixIncDecContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code UnaryExpr}
-	 * labeled alternative in {@link InterpreterParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitUnaryExpr(InterpreterParser.UnaryExprContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code SubExpression}
 	 * labeled alternative in {@link InterpreterParser#expr}.
 	 * @param ctx the parse tree
@@ -73,24 +78,19 @@ public interface InterpreterVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSubExpression(InterpreterParser.SubExpressionContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code UnaryExpr}
+	 * labeled alternative in {@link InterpreterParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryExpr(InterpreterParser.UnaryExprContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code Identify}
 	 * labeled alternative in {@link InterpreterParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitIdentify(InterpreterParser.IdentifyContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link InterpreterParser#apos}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitApos(InterpreterParser.AposContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link InterpreterParser#dquo}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitDquo(InterpreterParser.DquoContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link InterpreterParser#comment}.
 	 * @param ctx the parse tree
@@ -182,57 +182,102 @@ public interface InterpreterVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBody_decl(InterpreterParser.Body_declContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link InterpreterParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStatement(InterpreterParser.StatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link InterpreterParser#labeledStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLabeledStatement(InterpreterParser.LabeledStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link InterpreterParser#compoundStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCompoundStatement(InterpreterParser.CompoundStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link InterpreterParser#blockItemList}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBlockItemList(InterpreterParser.BlockItemListContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link InterpreterParser#blockItem}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBlockItem(InterpreterParser.BlockItemContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link InterpreterParser#expressionStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpressionStatement(InterpreterParser.ExpressionStatementContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code IfStatement}
-	 * labeled alternative in {@link InterpreterParser#statement}.
+	 * labeled alternative in {@link InterpreterParser#selectionStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitIfStatement(InterpreterParser.IfStatementContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code SwitchStatement}
+	 * labeled alternative in {@link InterpreterParser#selectionStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSwitchStatement(InterpreterParser.SwitchStatementContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code WhileStatement}
-	 * labeled alternative in {@link InterpreterParser#statement}.
+	 * labeled alternative in {@link InterpreterParser#iterationStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitWhileStatement(InterpreterParser.WhileStatementContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code BlockStatement}
-	 * labeled alternative in {@link InterpreterParser#statement}.
+	 * Visit a parse tree produced by the {@code DoWhileStatement}
+	 * labeled alternative in {@link InterpreterParser#iterationStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBlockStatement(InterpreterParser.BlockStatementContext ctx);
+	T visitDoWhileStatement(InterpreterParser.DoWhileStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ForStatement}
+	 * labeled alternative in {@link InterpreterParser#iterationStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitForStatement(InterpreterParser.ForStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code GotoStatement}
+	 * labeled alternative in {@link InterpreterParser#jumpStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitGotoStatement(InterpreterParser.GotoStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ContinueStatement}
+	 * labeled alternative in {@link InterpreterParser#jumpStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitContinueStatement(InterpreterParser.ContinueStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code BreakStatement}
+	 * labeled alternative in {@link InterpreterParser#jumpStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBreakStatement(InterpreterParser.BreakStatementContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ReturnStatement}
-	 * labeled alternative in {@link InterpreterParser#statement}.
+	 * labeled alternative in {@link InterpreterParser#jumpStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitReturnStatement(InterpreterParser.ReturnStatementContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ExprStatement}
-	 * labeled alternative in {@link InterpreterParser#statement}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitExprStatement(InterpreterParser.ExprStatementContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code EmptyStatement}
-	 * labeled alternative in {@link InterpreterParser#statement}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitEmptyStatement(InterpreterParser.EmptyStatementContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link InterpreterParser#if_statement}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitIf_statement(InterpreterParser.If_statementContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link InterpreterParser#while_statement}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitWhile_statement(InterpreterParser.While_statementContext ctx);
 }
