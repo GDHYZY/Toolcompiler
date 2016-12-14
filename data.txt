@@ -9,16 +9,12 @@ int main()
 {
 	int c;
 	char k;
-	//fuck
-/*
-		ke
-	*/
-	// you
-	k = 'n';
+	k = 'b';
 	a = 1;b = 2;
 	c = add(a++,++b);
+	c = add(c,++b);
 	if(a < b){
-		return a;
+		return k;
 	}
 	return c;
 }

@@ -3,6 +3,7 @@ public class Translater extends InterpreterBaseVisitor<Object> {
 	
 	private int expr_type;		//remember expr's type
 	private int bp_pos;			//remember params's number
+	private int local_pos;		//remember localid's number
 	private int data_pos;		//remember datasegment's index
 	private int id_index = 0;	//remember currend_id's position
 	private int _class;			//remember decl global or local
@@ -43,7 +44,6 @@ public class Translater extends InterpreterBaseVisitor<Object> {
 	@Override
 	public Object visitVariable_decl(InterpreterParser.Variable_declContext ctx) {
 		// TODO Auto-generated method stub
-		int local_pos = bp_pos;
 		int type = Program.getInstance().INT;
 		String t = ctx.type().getText().toString();
 		if(t.charAt(0) == 'i'){
@@ -79,7 +79,7 @@ public class Translater extends InterpreterBaseVisitor<Object> {
 			Program.getInstance().Symbols[id_index].Class = _class;
 		}
 		
-		return local_pos - bp_pos;
+		return null;
 	}
 	
 	@Override
@@ -162,14 +162,14 @@ public class Translater extends InterpreterBaseVisitor<Object> {
 	@Override
 	public Object visitBody_decl(InterpreterParser.Body_declContext ctx) {
 		// TODO Auto-generated method stub
-		int local_num = 0;
+		local_pos = bp_pos;
 		
 		for(int i = 0; i < ctx.variable_decl().size(); ++i){
-			local_num += Integer.valueOf(visit(ctx.variable_decl(i)).toString());;			
+			visit(ctx.variable_decl(i));;			
 		}
 		
 		Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().ENT;
-		Program.getInstance().TextSegment[++Program.getInstance()._textpos] = local_num;
+		Program.getInstance().TextSegment[++Program.getInstance()._textpos] = local_pos - bp_pos;
 		
 		for(int i = 0; ctx.statement() != null && i < ctx.statement().size(); ++i){
 			visit(ctx.statement(i));			
@@ -185,17 +185,18 @@ public class Translater extends InterpreterBaseVisitor<Object> {
 		// TODO Auto-generated method stub
 		String s ;
 		
-		if(ctx.CharacterConstant() != null){
-			s = visit(ctx.CharacterConstant()).toString();
+		if(ctx.Constant() != null){
+			s = ctx.Constant().getText().toString();
 		}else{
-			s = visit(ctx.StringLiteral()).toString();
+			s = ctx.StringLiteral().getText().toString();
 		}
+		System.out.println(s);
 		char c = s.charAt(0);
 		int last_pos = data_pos;
 		int i = 1;
 		int val = 0;
 		while(i < s.length() - 1){
-			val = s.charAt(i++);
+			val = (int)s.charAt(i++);
 			if(val == '\\'){
 				val = s.charAt(i++);
 				if(val == 'n'){
@@ -376,8 +377,8 @@ public class Translater extends InterpreterBaseVisitor<Object> {
 			expr_type = Program.getInstance().INT;
 			break;
 		case InterpreterParser.Assign:
-			tmp = expr_type;
 			visit(ctx.expr(0));
+			tmp = expr_type;
 			int id = id_index;
 			if(Program.getInstance().TextSegment[Program.getInstance()._textpos] == Program.getInstance().LC ||
 					Program.getInstance().TextSegment[Program.getInstance()._textpos] == Program.getInstance().LI ||
@@ -388,8 +389,9 @@ public class Translater extends InterpreterBaseVisitor<Object> {
 				System.out.println("bad lefthandside value in assignment");
 				System.exit(-1);
 			}
+			
 			visit(ctx.expr(1));
-			expr_type = Program.getInstance().INT;
+			expr_type = tmp;
 			if(Program.getInstance().Symbols[id].Class == Program.getInstance().LOCAL){
 				Program.getInstance().TextSegment[++Program.getInstance()._textpos] = 
 						(expr_type == Program.getInstance().CHAR) ? Program.getInstance().SC : Program.getInstance().SI;				
@@ -587,6 +589,7 @@ public class Translater extends InterpreterBaseVisitor<Object> {
 		// TODO Auto-generated method stub
 		visit(ctx.id());
 		int id = id_index;
+		expr_type = Program.getInstance().Symbols[id].Type;
 		if(Program.getInstance().Symbols[id].Class == Program.getInstance().GLOBAL){
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().IMM;
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().Symbols[id].Value;
@@ -599,8 +602,6 @@ public class Translater extends InterpreterBaseVisitor<Object> {
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = 
 					(expr_type == Program.getInstance().CHAR) ? Program.getInstance().LC : Program.getInstance().LI;
 		}
-		expr_type = Program.getInstance().Symbols[id].Type;
-		
 		return null;
 	}
 	

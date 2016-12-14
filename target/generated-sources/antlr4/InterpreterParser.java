@@ -23,7 +23,7 @@ public class InterpreterParser extends Parser {
 		Div=33, Add=34, Sub=35, Inc=36, Dec=37, Ne=38, Le=39, Shl=40, Lt=41, Ge=42, 
 		Shr=43, Gt=44, Lor=45, Or=46, Lan=47, And=48, Xor=49, Mod=50, Brak=51, 
 		Cond=52, Til=53, Not=54, Identifier=55, Constant=56, StringLiteral=57, 
-		Whitespace=58, Newline=59, BlockComment=60, LineComment=61, CharacterConstant=62;
+		Whitespace=58, Newline=59, BlockComment=60, LineComment=61;
 	public static final int
 		RULE_apos = 0, RULE_dquo = 1, RULE_expr = 2, RULE_comment = 3, RULE_type = 4, 
 		RULE_program = 5, RULE_global_declaration = 6, RULE_id = 7, RULE_enum_decl = 8, 
@@ -56,7 +56,7 @@ public class InterpreterParser extends Parser {
 		"Sub", "Inc", "Dec", "Ne", "Le", "Shl", "Lt", "Ge", "Shr", "Gt", "Lor", 
 		"Or", "Lan", "And", "Xor", "Mod", "Brak", "Cond", "Til", "Not", "Identifier", 
 		"Constant", "StringLiteral", "Whitespace", "Newline", "BlockComment", 
-		"LineComment", "CharacterConstant"
+		"LineComment"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -236,8 +236,8 @@ public class InterpreterParser extends Parser {
 		}
 	}
 	public static class StringContext extends ExprContext {
+		public TerminalNode Constant() { return getToken(InterpreterParser.Constant, 0); }
 		public TerminalNode StringLiteral() { return getToken(InterpreterParser.StringLiteral, 0); }
-		public TerminalNode CharacterConstant() { return getToken(InterpreterParser.CharacterConstant, 0); }
 		public StringContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
@@ -351,7 +351,7 @@ public class InterpreterParser extends Parser {
 				_ctx = _localctx;
 				_prevctx = _localctx;
 				setState(51);
-				match(StringLiteral);
+				match(Constant);
 				}
 				break;
 			case 4:
@@ -360,7 +360,7 @@ public class InterpreterParser extends Parser {
 				_ctx = _localctx;
 				_prevctx = _localctx;
 				setState(52);
-				match(CharacterConstant);
+				match(StringLiteral);
 				}
 				break;
 			case 5:
@@ -623,7 +623,7 @@ public class InterpreterParser extends Parser {
 						match(T__2);
 						setState(107);
 						_la = _input.LA(1);
-						if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << ID) | (1L << NUM) | (1L << Mul) | (1L << Add) | (1L << Sub) | (1L << Inc) | (1L << Dec) | (1L << And) | (1L << Til) | (1L << Not) | (1L << StringLiteral) | (1L << CharacterConstant))) != 0)) {
+						if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << ID) | (1L << NUM) | (1L << Mul) | (1L << Add) | (1L << Sub) | (1L << Inc) | (1L << Dec) | (1L << And) | (1L << Til) | (1L << Not) | (1L << Constant) | (1L << StringLiteral))) != 0)) {
 							{
 							setState(106);
 							expr(0);
@@ -1509,7 +1509,7 @@ public class InterpreterParser extends Parser {
 				setState(247);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << T__11) | (1L << T__13) | (1L << T__15) | (1L << T__16) | (1L << T__17) | (1L << T__19) | (1L << T__20) | (1L << T__21) | (1L << T__22) | (1L << T__23) | (1L << T__24) | (1L << T__25) | (1L << T__26) | (1L << ID) | (1L << NUM) | (1L << Mul) | (1L << Add) | (1L << Sub) | (1L << Inc) | (1L << Dec) | (1L << And) | (1L << Til) | (1L << Not) | (1L << Identifier) | (1L << StringLiteral) | (1L << CharacterConstant))) != 0)) {
+				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << T__11) | (1L << T__13) | (1L << T__15) | (1L << T__16) | (1L << T__17) | (1L << T__19) | (1L << T__20) | (1L << T__21) | (1L << T__22) | (1L << T__23) | (1L << T__24) | (1L << T__25) | (1L << T__26) | (1L << ID) | (1L << NUM) | (1L << Mul) | (1L << Add) | (1L << Sub) | (1L << Inc) | (1L << Dec) | (1L << And) | (1L << Til) | (1L << Not) | (1L << Identifier) | (1L << Constant) | (1L << StringLiteral))) != 0)) {
 					{
 					{
 					setState(244);
@@ -1618,8 +1618,8 @@ public class InterpreterParser extends Parser {
 			case And:
 			case Til:
 			case Not:
+			case Constant:
 			case StringLiteral:
-			case CharacterConstant:
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(260);
@@ -1769,7 +1769,7 @@ public class InterpreterParser extends Parser {
 			match(T__11);
 			setState(281);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << T__8) | (1L << T__9) | (1L << T__11) | (1L << T__13) | (1L << T__15) | (1L << T__16) | (1L << T__17) | (1L << T__19) | (1L << T__20) | (1L << T__21) | (1L << T__22) | (1L << T__23) | (1L << T__24) | (1L << T__25) | (1L << T__26) | (1L << ID) | (1L << NUM) | (1L << Mul) | (1L << Add) | (1L << Sub) | (1L << Inc) | (1L << Dec) | (1L << And) | (1L << Til) | (1L << Not) | (1L << Identifier) | (1L << StringLiteral) | (1L << CharacterConstant))) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << T__8) | (1L << T__9) | (1L << T__11) | (1L << T__13) | (1L << T__15) | (1L << T__16) | (1L << T__17) | (1L << T__19) | (1L << T__20) | (1L << T__21) | (1L << T__22) | (1L << T__23) | (1L << T__24) | (1L << T__25) | (1L << T__26) | (1L << ID) | (1L << NUM) | (1L << Mul) | (1L << Add) | (1L << Sub) | (1L << Inc) | (1L << Dec) | (1L << And) | (1L << Til) | (1L << Not) | (1L << Identifier) | (1L << Constant) | (1L << StringLiteral))) != 0)) {
 				{
 				setState(280);
 				blockItemList(0);
@@ -1921,8 +1921,8 @@ public class InterpreterParser extends Parser {
 			case Til:
 			case Not:
 			case Identifier:
+			case Constant:
 			case StringLiteral:
-			case CharacterConstant:
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(296);
@@ -1968,7 +1968,7 @@ public class InterpreterParser extends Parser {
 			{
 			setState(300);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << ID) | (1L << NUM) | (1L << Mul) | (1L << Add) | (1L << Sub) | (1L << Inc) | (1L << Dec) | (1L << And) | (1L << Til) | (1L << Not) | (1L << StringLiteral) | (1L << CharacterConstant))) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << ID) | (1L << NUM) | (1L << Mul) | (1L << Add) | (1L << Sub) | (1L << Inc) | (1L << Dec) | (1L << And) | (1L << Til) | (1L << Not) | (1L << Constant) | (1L << StringLiteral))) != 0)) {
 				{
 				setState(299);
 				expr(0);
@@ -2208,7 +2208,7 @@ public class InterpreterParser extends Parser {
 				match(T__2);
 				setState(338);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << ID) | (1L << NUM) | (1L << Mul) | (1L << Add) | (1L << Sub) | (1L << Inc) | (1L << Dec) | (1L << And) | (1L << Til) | (1L << Not) | (1L << StringLiteral) | (1L << CharacterConstant))) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << ID) | (1L << NUM) | (1L << Mul) | (1L << Add) | (1L << Sub) | (1L << Inc) | (1L << Dec) | (1L << And) | (1L << Til) | (1L << Not) | (1L << Constant) | (1L << StringLiteral))) != 0)) {
 					{
 					setState(337);
 					expr(0);
@@ -2219,7 +2219,7 @@ public class InterpreterParser extends Parser {
 				match(T__13);
 				setState(342);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << ID) | (1L << NUM) | (1L << Mul) | (1L << Add) | (1L << Sub) | (1L << Inc) | (1L << Dec) | (1L << And) | (1L << Til) | (1L << Not) | (1L << StringLiteral) | (1L << CharacterConstant))) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << ID) | (1L << NUM) | (1L << Mul) | (1L << Add) | (1L << Sub) | (1L << Inc) | (1L << Dec) | (1L << And) | (1L << Til) | (1L << Not) | (1L << Constant) | (1L << StringLiteral))) != 0)) {
 					{
 					setState(341);
 					expr(0);
@@ -2230,7 +2230,7 @@ public class InterpreterParser extends Parser {
 				match(T__13);
 				setState(346);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << ID) | (1L << NUM) | (1L << Mul) | (1L << Add) | (1L << Sub) | (1L << Inc) | (1L << Dec) | (1L << And) | (1L << Til) | (1L << Not) | (1L << StringLiteral) | (1L << CharacterConstant))) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << ID) | (1L << NUM) | (1L << Mul) | (1L << Add) | (1L << Sub) | (1L << Inc) | (1L << Dec) | (1L << And) | (1L << Til) | (1L << Not) | (1L << Constant) | (1L << StringLiteral))) != 0)) {
 					{
 					setState(345);
 					expr(0);
@@ -2353,7 +2353,7 @@ public class InterpreterParser extends Parser {
 				match(T__26);
 				setState(361);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << ID) | (1L << NUM) | (1L << Mul) | (1L << Add) | (1L << Sub) | (1L << Inc) | (1L << Dec) | (1L << And) | (1L << Til) | (1L << Not) | (1L << StringLiteral) | (1L << CharacterConstant))) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << ID) | (1L << NUM) | (1L << Mul) | (1L << Add) | (1L << Sub) | (1L << Inc) | (1L << Dec) | (1L << And) | (1L << Til) | (1L << Not) | (1L << Constant) | (1L << StringLiteral))) != 0)) {
 					{
 					setState(360);
 					expr(0);
@@ -2436,7 +2436,7 @@ public class InterpreterParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3@\u0171\4\2\t\2\4"+
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3?\u0171\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\3\2\3\2\3\3\3\3\3\4"+
@@ -2473,7 +2473,7 @@ public class InterpreterParser extends Parser {
 		"\36\u0117\3\2\2\2 \u0119\3\2\2\2\"\u011f\3\2\2\2$\u012b\3\2\2\2&\u012e"+
 		"\3\2\2\2(\u0141\3\2\2\2*\u0160\3\2\2\2,\u016e\3\2\2\2./\7\3\2\2/\3\3\2"+
 		"\2\2\60\61\7\4\2\2\61\5\3\2\2\2\62\63\b\4\1\2\63C\7\37\2\2\64C\5\20\t"+
-		"\2\65C\7;\2\2\66C\7@\2\2\678\7\5\2\289\5\6\4\29:\7\6\2\2:C\3\2\2\2;<\t"+
+		"\2\65C\7:\2\2\66C\7;\2\2\678\7\5\2\289\5\6\4\29:\7\6\2\2:C\3\2\2\2;<\t"+
 		"\2\2\2<C\5\6\4\20=@\t\3\2\2>A\7\37\2\2?A\5\6\4\2@>\3\2\2\2@?\3\2\2\2A"+
 		"C\3\2\2\2B\62\3\2\2\2B\64\3\2\2\2B\65\3\2\2\2B\66\3\2\2\2B\67\3\2\2\2"+
 		"B;\3\2\2\2B=\3\2\2\2C\u0087\3\2\2\2DE\f\16\2\2EF\t\4\2\2F\u0086\5\6\4"+

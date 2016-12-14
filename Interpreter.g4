@@ -36,8 +36,8 @@ dquo: '"';
     
 expr : NUM								# Number
 |id										# Identify
+|Constant								# String
 |StringLiteral							# String
-|CharacterConstant						# String
 |'(' expr ')'							# SubExpression	
 |expr '[' expr ']'                		# Subscript
 |expr '(' expr? (',' expr )* ')' 		# FunctionCall
@@ -300,7 +300,7 @@ CCharSequence
 
 fragment
 CChar
-    :   ~['\\\r\n]
+    :   ~[\'\\\r\n]
     |   EscapeSequence
     ;
 
