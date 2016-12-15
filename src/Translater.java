@@ -1,4 +1,5 @@
 
+
 public class Translater extends InterpreterBaseVisitor<Object> {
 	
 	private int expr_type;		//remember expr's type
@@ -227,30 +228,30 @@ public class Translater extends InterpreterBaseVisitor<Object> {
 		int addr;
 		switch (ctx.op.getType()) {
 		case InterpreterParser.Mul:
-			visit(ctx.expr(0));
+			visit(ctx.expression(0));
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().PUSH;
-			visit(ctx.expr(1));
+			visit(ctx.expression(1));
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().MUL;
 			expr_type = tmp;
 			break;
 		case InterpreterParser.Div:
-			visit(ctx.expr(0));
+			visit(ctx.expression(0));
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().PUSH;
-			visit(ctx.expr(1));
+			visit(ctx.expression(1));
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().DIV;
 			expr_type = tmp;
 			break;
 		case InterpreterParser.Mod:
-			visit(ctx.expr(0));
+			visit(ctx.expression(0));
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().PUSH;
-			visit(ctx.expr(1));
+			visit(ctx.expression(1));
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().MOD;
 			expr_type = tmp;
 			break;
 		case InterpreterParser.Add:
-			visit(ctx.expr(0));
+			visit(ctx.expression(0));
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().PUSH;
-			visit(ctx.expr(1));
+			visit(ctx.expression(1));
 			expr_type = tmp;
 			if (expr_type < Program.getInstance().PTR){
 				Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().PUSH;
@@ -261,9 +262,9 @@ public class Translater extends InterpreterBaseVisitor<Object> {
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().ADD;
 			break;
 		case InterpreterParser.Sub:
-			visit(ctx.expr(0));
+			visit(ctx.expression(0));
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().PUSH;
-			visit(ctx.expr(1));
+			visit(ctx.expression(1));
 			if(tmp > Program.getInstance().PTR && tmp == expr_type){
 				Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().SUB;
 				Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().PUSH;
@@ -284,100 +285,100 @@ public class Translater extends InterpreterBaseVisitor<Object> {
 			}
 			break;
 		case InterpreterParser.Shl:
-			visit(ctx.expr(0));
+			visit(ctx.expression(0));
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().PUSH;
-			visit(ctx.expr(1));
+			visit(ctx.expression(1));
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().SHL;
 			expr_type = Program.getInstance().INT;
 			break;
 		case InterpreterParser.Shr:
-			visit(ctx.expr(0));
+			visit(ctx.expression(0));
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().PUSH;
-			visit(ctx.expr(1));
+			visit(ctx.expression(1));
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().SHR;
 			expr_type = Program.getInstance().INT;
 			break;
 		case InterpreterParser.Lt:
-			visit(ctx.expr(0));
+			visit(ctx.expression(0));
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().PUSH;
-			visit(ctx.expr(1));
+			visit(ctx.expression(1));
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().LT;
 			expr_type = Program.getInstance().INT;
 			break;
 		case InterpreterParser.Gt:
-			visit(ctx.expr(0));
+			visit(ctx.expression(0));
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().PUSH;
-			visit(ctx.expr(1));
+			visit(ctx.expression(1));
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().GT;
 			expr_type = Program.getInstance().INT;
 			break;
 		case InterpreterParser.Le:
-			visit(ctx.expr(0));
+			visit(ctx.expression(0));
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().PUSH;
-			visit(ctx.expr(1));
+			visit(ctx.expression(1));
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().LE;
 			expr_type = Program.getInstance().INT;
 			break;
 		case InterpreterParser.Ge:
-			visit(ctx.expr(0));
+			visit(ctx.expression(0));
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().PUSH;
-			visit(ctx.expr(1));
+			visit(ctx.expression(1));
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().GE;
 			expr_type = Program.getInstance().INT;
 			break;
 		case InterpreterParser.Eq:
-			visit(ctx.expr(0));
+			visit(ctx.expression(0));
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().PUSH;
-			visit(ctx.expr(1));
+			visit(ctx.expression(1));
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().EQ;
 			expr_type = Program.getInstance().INT;
 			break;
 		case InterpreterParser.Ne:
-			visit(ctx.expr(0));
+			visit(ctx.expression(0));
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().PUSH;
-			visit(ctx.expr(1));
+			visit(ctx.expression(1));
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().NE;
 			expr_type = Program.getInstance().INT;
 			break;
 		case InterpreterParser.And:
-			visit(ctx.expr(0));
+			visit(ctx.expression(0));
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().PUSH;
-			visit(ctx.expr(1));
+			visit(ctx.expression(1));
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().AND;
 			expr_type = Program.getInstance().INT;
 			break;
 		case InterpreterParser.Xor:
-			visit(ctx.expr(0));
+			visit(ctx.expression(0));
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().PUSH;
-			visit(ctx.expr(1));
+			visit(ctx.expression(1));
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().XOR;
 			expr_type = Program.getInstance().INT;
 			break;
 		case InterpreterParser.Or:
-			visit(ctx.expr(0));
+			visit(ctx.expression(0));
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().PUSH;
-			visit(ctx.expr(1));
+			visit(ctx.expression(1));
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().OR;
 			expr_type = Program.getInstance().INT;
 			break;
 		case InterpreterParser.Lan:
-			visit(ctx.expr(0));
+			visit(ctx.expression(0));
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().JZ;
 			addr = ++Program.getInstance()._textpos;
-			visit(ctx.expr(1));
+			visit(ctx.expression(1));
 			Program.getInstance().TextSegment[addr] = Program.getInstance()._textpos + 1;
 			expr_type = Program.getInstance().INT;
 			break;
 		case InterpreterParser.Lor:
-			visit(ctx.expr(0));
+			visit(ctx.expression(0));
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().JNZ;
 			addr = ++Program.getInstance()._textpos;
-			visit(ctx.expr(1));
+			visit(ctx.expression(1));
 			Program.getInstance().TextSegment[addr] = Program.getInstance()._textpos + 1;
 			expr_type = Program.getInstance().INT;
 			break;
 		case InterpreterParser.Assign:
-			visit(ctx.expr(0));
+			visit(ctx.expression(0));
 			tmp = expr_type;
 			int id = id_index;
 			if(Program.getInstance().TextSegment[Program.getInstance()._textpos] == Program.getInstance().LC ||
@@ -390,7 +391,7 @@ public class Translater extends InterpreterBaseVisitor<Object> {
 				System.exit(-1);
 			}
 			
-			visit(ctx.expr(1));
+			visit(ctx.expression(1));
 			expr_type = tmp;
 			if(Program.getInstance().Symbols[id].Class == Program.getInstance().LOCAL){
 				Program.getInstance().TextSegment[++Program.getInstance()._textpos] = 
@@ -413,7 +414,7 @@ public class Translater extends InterpreterBaseVisitor<Object> {
 	@Override
 	public Object visitPostfixIncDec(InterpreterParser.PostfixIncDecContext ctx) {
 		// TODO Auto-generated method stub
-		visit(ctx.expr());
+		visit(ctx.expression());
 		if (Program.getInstance().TextSegment[Program.getInstance()._textpos] == Program
 				.getInstance().LC) {
 			Program.getInstance().TextSegment[Program.getInstance()._textpos] = Program
@@ -478,11 +479,12 @@ public class Translater extends InterpreterBaseVisitor<Object> {
 		return null;
 	}
 	
+	
 	@Override
 	public Object visitUnaryExpr(InterpreterParser.UnaryExprContext ctx) {
 		// TODO Auto-generated method stub
 		if(ctx.op.getType() == InterpreterParser.Inc || ctx.op.getType() == InterpreterParser.Dec){
-			visit(ctx.expr());
+			visit(ctx.expression());
 			if(Program.getInstance().TextSegment[Program.getInstance()._textpos] == Program.getInstance().LC){
 				Program.getInstance().TextSegment[Program.getInstance()._textpos] = Program.getInstance().PUSH;
 				Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().LC;
@@ -518,7 +520,7 @@ public class Translater extends InterpreterBaseVisitor<Object> {
 		}
 		
 		if(ctx.op.getType() == InterpreterParser.Not || ctx.op.getType() == InterpreterParser.Til){
-			visit(ctx.expr());
+			visit(ctx.expression());
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().PUSH;
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().IMM;
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = 
@@ -531,24 +533,17 @@ public class Translater extends InterpreterBaseVisitor<Object> {
 		if (ctx.op.getType() == InterpreterParser.Add
 				|| ctx.op.getType() == InterpreterParser.Sub) {
 			if (ctx.op.getType() == InterpreterParser.Add) {
-				visit(ctx.expr());
+				visit(ctx.expression());
 				expr_type = Program.getInstance().INT;
 			} else {
-				if (ctx.expr().isEmpty()) {
-					Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program
-							.getInstance().IMM;
-					Program.getInstance().TextSegment[++Program.getInstance()._textpos] = -Integer
-							.valueOf(ctx.NUM().getText());
-				} else {
-					Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program
-							.getInstance().IMM;
-					Program.getInstance().TextSegment[++Program.getInstance()._textpos] = -1;
-					Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program
-							.getInstance().PUSH;
-					visit(ctx.expr());
-					Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program
-							.getInstance().MUL;
-				}
+				Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program
+						.getInstance().IMM;
+				Program.getInstance().TextSegment[++Program.getInstance()._textpos] = -1;
+				Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program
+						.getInstance().PUSH;
+				visit(ctx.expression());
+				Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program
+						.getInstance().MUL;
 				expr_type = Program.getInstance().INT;
 			}
 		}
@@ -559,10 +554,10 @@ public class Translater extends InterpreterBaseVisitor<Object> {
 	public Object visitFunctionCall(InterpreterParser.FunctionCallContext ctx) {
 		// TODO Auto-generated method stub
 		int tmp = 0;
-		visit(ctx.expr(0));
+		visit(ctx.expression(0));
 		int id = id_index;
-		for(int i = 1; i < ctx.expr().size(); ++i){
-			visit(ctx.expr(i));
+		for(int i = 1; i < ctx.expression().size(); ++i){
+			visit(ctx.expression(i));
 			Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().PUSH;
 			tmp++;
 		}
@@ -643,7 +638,7 @@ public class Translater extends InterpreterBaseVisitor<Object> {
 	@Override
 	public Object visitReturnStatement(InterpreterParser.ReturnStatementContext ctx) {
 		// TODO Auto-generated method stub
-		visit(ctx.expr());
+		visit(ctx.expression());
 		Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().LEV;
 		return null;
 	}
@@ -653,7 +648,7 @@ public class Translater extends InterpreterBaseVisitor<Object> {
 	public Object visitIfStatement(InterpreterParser.IfStatementContext ctx) {
 		// TODO Auto-generated method stub
 		int b;
-		visit(ctx.expr());
+		visit(ctx.expression());
 		Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().JZ;
 		b = ++Program.getInstance()._textpos;
 		visit(ctx.statement(0));
@@ -674,7 +669,7 @@ public class Translater extends InterpreterBaseVisitor<Object> {
 		// TODO Auto-generated method stub
 		int a,b;
 		a = Program.getInstance()._textpos + 1;
-		visit(ctx.expr());
+		visit(ctx.expression());
 		Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().JZ;
 		b = ++Program.getInstance()._textpos;
 		
@@ -683,6 +678,46 @@ public class Translater extends InterpreterBaseVisitor<Object> {
 		Program.getInstance().TextSegment[++Program.getInstance()._textpos] = a;
 		Program.getInstance().TextSegment[b] = Program.getInstance()._textpos + 1;
 		
+		return null;
+	}
+	
+	@Override
+	public Object visitForStatement(InterpreterParser.ForStatementContext ctx) {
+		// TODO Auto-generated method stub
+		int a,b;
+		if(ctx.expression(0)!=null){
+			visit(ctx.expression(0));
+		}
+		a = Program.getInstance()._textpos + 1;
+		if(ctx.expression(1)!=null){
+			visit(ctx.expression(1));
+		}
+		Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().JZ;
+		b = ++Program.getInstance()._textpos;
+		
+		visit(ctx.statement());
+		if(ctx.expression(2)!=null){
+			visit(ctx.expression(2));
+		}
+		
+		Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().JMP;
+		Program.getInstance().TextSegment[++Program.getInstance()._textpos] = a;
+		Program.getInstance().TextSegment[b] = Program.getInstance()._textpos + 1;
+		return null;
+	}
+	
+	@Override
+	public Object visitDoWhileStatement(InterpreterParser.DoWhileStatementContext ctx) {
+		// TODO Auto-generated method stub
+		int a,b;
+		a = Program.getInstance()._textpos + 1;
+		visit(ctx.statement());
+		visit(ctx.expression());
+		Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().JZ;
+		b = ++Program.getInstance()._textpos;
+		Program.getInstance().TextSegment[++Program.getInstance()._textpos] = Program.getInstance().JMP;
+		Program.getInstance().TextSegment[++Program.getInstance()._textpos] = a;
+		Program.getInstance().TextSegment[b] = Program.getInstance()._textpos + 1;
 		return null;
 	}
 }

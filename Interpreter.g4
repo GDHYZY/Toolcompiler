@@ -34,31 +34,33 @@ Not : '!';
 apos: '\'';
 dquo: '"'; 
     
-expr : NUM								# Number
+expression : NUM						# Number
 |id										# Identify
 |Constant								# String
 |StringLiteral							# String
-|'(' expr ')'							# SubExpression	
-|expr '[' expr ']'                		# Subscript
-|expr '(' expr? (',' expr )* ')' 		# FunctionCall
-|expr '.' ID                    		# MemberAccess
-|expr '->' ID							# MemberAccess
-|expr op=('++'|'--')					# PostfixIncDec
-|<assoc=right> op=('++'|'--') expr      # UnaryExpr        
-|<assoc=right> op=('&' | '*' | '+' | '-' | '~' | '!') (NUM|expr)		# UnaryExpr
-//|'sizeof' '(' type ')'					#sizeofexpr
-|expr op=('*'|'/'|'%') expr				# BinaryExpr
-|expr op=('+'|'-') (NUM|expr)			# BinaryExpr
-|expr op=('<<'|'>>') expr        		# BinaryExpr       
-|expr op=('<' | '>') expr         		# BinaryExpr       
-|expr op=('<='|'>=') expr         		# BinaryExpr
-|expr op=('=='|'!=') expr         		# BinaryExpr       
-|expr op='&' expr                		# BinaryExpr       
-|expr op='^' expr                 		# BinaryExpr       
-|expr op='|' expr                 		# BinaryExpr       
-|expr op='&&' expr                		# BinaryExpr       
-|expr op='||' expr                		# BinaryExpr       
-|expr op='=' expr   					# BinaryExpr       
+|'(' expression ')'														# Subexpression	
+|expression '[' expression ']'                							# Subscript
+|expression '(' expression? (',' expression )* ')' 						# FunctionCall
+|expression '.' ID                    									# MemberAccess
+|expression '->' ID														# MemberAccess
+|expression op=('++'|'--')												# PostfixIncDec
+|<assoc=right> op=('++'|'--') expression      							# UnaryExpr        
+|<assoc=right> op=('&' | '*' | '+' | '-' | '~' | '!') expression		# UnaryExpr
+//'sizeof' '(' type ')'					#sizeofexpr
+|'(' type ')' expression							# CastExpr
+|expression op=('*'|'/'|'%') expression				# BinaryExpr
+|expression op=('+'|'-') expression					# BinaryExpr
+|expression op=('<<'|'>>') expression        		# BinaryExpr       
+|expression op=('<' | '>') expression         		# BinaryExpr       
+|expression op=('<='|'>=') expression         		# BinaryExpr
+|expression op=('=='|'!=') expression         		# BinaryExpr       
+|expression op='&' expression                		# BinaryExpr       
+|expression op='^' expression                 		# BinaryExpr       
+|expression op='|' expression                 		# BinaryExpr       
+|expression op='&&' expression                		# BinaryExpr       
+|expression op='||' expression                		# BinaryExpr     
+|expression '?' expression ':' expression			# ConditionalExpr 		  
+|expression op=('='|'*='|'/='|'%='|'+='|'-='|'<<='|'>>='|'&='|'^='|'|=') expression			# BinaryExpr       
 ;	
 
 
@@ -100,8 +102,8 @@ body_decl : variable_decl* statement*
 //	| for_statement				#ForStatement
 //	| dowhile_statement			#DoWhileStatement
 //	| '{' statement* '}' 		#BlockStatement
-//	| 'return' expr? ';'		#ReturnStatement
-//	| expr ';'					#ExprStatement
+//	| 'return' expression? ';'		#ReturnStatement
+//	| expression ';'					#ExprStatement
 //	| ';'+						#EmptyStatement
 //	;
 //
@@ -122,7 +124,7 @@ statement
     ;
 labeledStatement
     :   Identifier ':' statement
-    |   'case' expr ':' statement
+    |   'case' expression ':' statement
     |   'default' ':' statement
     ;
 
@@ -141,25 +143,25 @@ blockItem
     ;
     
 expressionStatement
-    :   expr? ';'
+    :   expression? ';'
     ;
     
 selectionStatement
-    : 'if' '(' expr ')' statement ('else' statement)?		#IfStatement
-    | 'switch' '(' expr ')' statement						#SwitchStatement
+    : 'if' '(' expression ')' statement ('else' statement)?		#IfStatement
+    | 'switch' '(' expression ')' statement						#SwitchStatement
     ;
 
 iterationStatement
-    : 'while' '(' expr ')' statement						#WhileStatement
-    | 'do' statement 'while' '(' expr ')' ';'				#DoWhileStatement
-    | 'for' '(' expr? ';' expr? ';' expr? ')' statement		#ForStatement
+    : 'while' '(' expression ')' statement						#WhileStatement
+    | 'do' statement 'while' '(' expression ')' ';'				#DoWhileStatement
+    | 'for' '(' expression? ';' expression? ';' expression? ')' statement		#ForStatement
     ;
 
 jumpStatement
     : 'goto' Identifier ';'									#GotoStatement
     | 'continue' ';'										#ContinueStatement
     | 'break' ';'											#BreakStatement
-    | 'return' expr? ';'									#ReturnStatement
+    | 'return' expression? ';'									#ReturnStatement
     ;
     
     

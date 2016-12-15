@@ -23,70 +23,84 @@ public interface InterpreterVisitor<T> extends ParseTreeVisitor<T> {
 	T visitDquo(InterpreterParser.DquoContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code Number}
-	 * labeled alternative in {@link InterpreterParser#expr}.
+	 * labeled alternative in {@link InterpreterParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitNumber(InterpreterParser.NumberContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code MemberAccess}
-	 * labeled alternative in {@link InterpreterParser#expr}.
+	 * labeled alternative in {@link InterpreterParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitMemberAccess(InterpreterParser.MemberAccessContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code BinaryExpr}
-	 * labeled alternative in {@link InterpreterParser#expr}.
+	 * labeled alternative in {@link InterpreterParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitBinaryExpr(InterpreterParser.BinaryExprContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code CastExpr}
+	 * labeled alternative in {@link InterpreterParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCastExpr(InterpreterParser.CastExprContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code Subscript}
-	 * labeled alternative in {@link InterpreterParser#expr}.
+	 * labeled alternative in {@link InterpreterParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitSubscript(InterpreterParser.SubscriptContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code String}
-	 * labeled alternative in {@link InterpreterParser#expr}.
+	 * labeled alternative in {@link InterpreterParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitString(InterpreterParser.StringContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code Subexpression}
+	 * labeled alternative in {@link InterpreterParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSubexpression(InterpreterParser.SubexpressionContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code FunctionCall}
-	 * labeled alternative in {@link InterpreterParser#expr}.
+	 * labeled alternative in {@link InterpreterParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitFunctionCall(InterpreterParser.FunctionCallContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code ConditionalExpr}
+	 * labeled alternative in {@link InterpreterParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitConditionalExpr(InterpreterParser.ConditionalExprContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code PostfixIncDec}
-	 * labeled alternative in {@link InterpreterParser#expr}.
+	 * labeled alternative in {@link InterpreterParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitPostfixIncDec(InterpreterParser.PostfixIncDecContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code SubExpression}
-	 * labeled alternative in {@link InterpreterParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSubExpression(InterpreterParser.SubExpressionContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code UnaryExpr}
-	 * labeled alternative in {@link InterpreterParser#expr}.
+	 * labeled alternative in {@link InterpreterParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitUnaryExpr(InterpreterParser.UnaryExprContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code Identify}
-	 * labeled alternative in {@link InterpreterParser#expr}.
+	 * labeled alternative in {@link InterpreterParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
